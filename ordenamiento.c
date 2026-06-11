@@ -1,18 +1,31 @@
 #include <stdio.h>
+#include <string.h>
 #include "sorting.h"
+#include "piratas.h"
+#include "input.h"
 
-int intComparator(const int* x, const int* y){
-	int a= int(int*)x;
-	int b= int(int*)y;
-	if(a < b) return -1;
-	if(a > b) return 1;
-	return 0;
-}
+int main() {
+    int n;
+    scanf("%d", &n);
 
-int main(){
-	int a[] = {1,6,7,2,3};
-	insertionSort(a, 4 , sizeof(int), intComparator);
-	for (int i = 0; i < 4; i++)
-		printf("%d, ", a[i]);
-	printf("\n");
+    Pirate p[n];
+
+    for(int i = 0; i < n; i++) {
+        readWord(p[i].nombre, 101);
+        scanf("%lld", &p[i].recompensa);
+        scanf("%d", &p[i].edad);
+        readWord(p[i].tripulacion, 101);
+    }
+
+    insertionSort(p, n, sizeof(Pirate), pirataComparator);
+
+    for(int i = 0; i < n; i++) {
+        printf("%s %lld %d %s\n",
+               p[i].nombre,
+               p[i].recompensa,
+               p[i].edad,
+               p[i].tripulacion);
+    }
+
+    return 0;
 }
